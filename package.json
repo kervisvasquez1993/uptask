@@ -1,0 +1,20 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "est es un proyect con node.js con mvc",
+  "main": "index.js",
+  "scripts": {
+    "start" : "nodemon ./index.js"
+  },
+  "keywords": [
+    "node.js"
+  ],
+  "author": "kervis vasquez",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
