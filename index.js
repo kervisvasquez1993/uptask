@@ -1,6 +1,7 @@
 const express = require('express')
 const router = require('./routers')
 const path = require('path')
+const bodyParse = require('body-parser')
 // crear una aplicacion de express
 
 const app = express()
@@ -18,6 +19,9 @@ app.set('view engine', 'pug') // habilitar pug
 
 app.set('views', path.join(__dirname, './views'))
 
+//habilitar body parse
+
+app.use(bodyParse.urlencoded({extended : true}))
 // rutas del home 
 app.use('/', router()) // para hacer request o response 
 
