@@ -2,9 +2,15 @@ const express = require('express');
 const router = require('./routers');
 const path = require('path');
 const bodyParse = require('body-parser'); // habilitar para leer datos del formulario 
+const sequelize = require('./config/db');
+// crear la conexion a la base de datos 
+
+
+
 // crear una aplicacion de express
 
 const app = express();
+
 
 // cargar los archivos estaticos
 
@@ -30,4 +36,6 @@ app.use(bodyParse.urlencoded({extended : true}))
 app.use('/', router()) 
 // para hacer request o response 
 
-app.listen(3000)
+app.listen(3000, () => {
+    sequelize.authenticate().then(()=> console.log('conexion estableciada')).catch(e => console.log(e))
+})
