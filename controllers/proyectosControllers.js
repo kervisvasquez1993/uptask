@@ -15,7 +15,7 @@ exports.nuevoProyecto = (req,res) => {
 
     // validar que tengamos alg en el input 
 
-    const {nombre } = req.body
+    const { nombre } = req.body
 
     let errores = []
 
@@ -30,6 +30,10 @@ exports.nuevoProyecto = (req,res) => {
             nombrePaginas : 'Nuevo Proyecto',
             errores 
         })
+    }
+    else
+    {
+        // insertar en la base de datos
     }
 }
 
