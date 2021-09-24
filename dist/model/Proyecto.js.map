@@ -1,1 +1,1 @@
-{"version":3,"file":"Proyecto.js","sourceRoot":"","sources":["../../model/Proyecto.ts"],"names":[],"mappings":""}
+{"version":3,"file":"Proyecto.js","sourceRoot":"","sources":["../../model/Proyecto.ts"],"names":[],"mappings":";;;;;AAAA,yCAAsC;AACtC,sDAA8B;AAE9B,MAAM,QAAQ,GAAG,YAAE,CAAC,MAAM,CAAC,WAAW,EAAE;IAGpC,MAAM,EAAG;QACL,IAAI,EAAG,qBAAS,CAAC,MAAM;KAC1B;IAED,GAAG,EAAG;QACF,IAAI,EAAG,qBAAS,CAAC,MAAM;KAC1B;CACJ,CAAC,CAAA;AAGF,kBAAe,QAAQ,CAAA"}
