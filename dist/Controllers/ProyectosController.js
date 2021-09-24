@@ -7,9 +7,13 @@ const proyectoIndex = (req, res) => {
 exports.proyectoIndex = proyectoIndex;
 const proyectoStore = (req, res) => {
     const { body } = req;
+    const nombre = body.nombre;
+    if (nombre.length <= 0) {
+        return res.status(400).json({ data: "el nombre es requerido" });
+    }
     res.json({
         data: "enviaste el formulario",
-        body
+        body,
     });
 };
 exports.proyectoStore = proyectoStore;
