@@ -24,10 +24,13 @@ const proyectoStore = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     if (nombre.length <= 0) {
         return res.status(400).json({ data: "el nombre es requerido" });
     }
-    const proyecto = yield Proyecto_1.default.create(body);
+    const proyecto = yield Proyecto_1.default.findOne({ where: { nombre: body.nombre }, });
+    if (proyecto) {
+        return res.status(400).json({ data: `ya existe un proyecto con el nombre : ${nombre}` });
+    }
+    const proyectoSave = yield Proyecto_1.default.create(body);
     res.json({
-        data: proyecto,
-        body,
+        data: proyectoSave
     });
 });
 exports.proyectoStore = proyectoStore;

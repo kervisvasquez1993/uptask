@@ -10,9 +10,12 @@ export const proyectoStore = async (req: Request, res: Response) => {
     if (nombre.length <= 0) {
         return res.status(400).json({ data: "el nombre es requerido" });
     }
-    const proyecto =  await Proyecto.create(body)
+    const proyecto = await Proyecto.findOne({where : { nombre : body.nombre},})
+    if(proyecto){
+        return res.status(400).json({data: `ya existe un proyecto con el nombre : ${nombre}`})
+    }
+     const proyectoSave = await Proyecto.create(body)
     res.json({
-        data : proyecto,
-        body,
+        data : proyectoSave
     });
 };
