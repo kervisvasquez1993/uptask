@@ -1,5 +1,6 @@
 import express, { Application } from "express";
 import userRoute from "../routers/UserRouter";
+import proyectoRouter from "../routers/ProyectoRouter";
 import cors from "cors";
 import db from "../config/db";
 class Server {
@@ -7,6 +8,7 @@ class Server {
     private port: string;
     private apiPath = {
         users: "/api/users",
+        proyectos: "/api/proyectos",
     };
     constructor() {
         this.app = express();
@@ -18,9 +20,8 @@ class Server {
 
     async dbConnection() {
         try {
-
             await db.authenticate();
-            console.log("Database esta online")
+            console.log("Database esta online");
         } catch (err) {
             throw new Error("No se conecto a la base de datos");
         }
@@ -41,6 +42,7 @@ class Server {
     }
     routes() {
         this.app.use(this.apiPath.users, userRoute);
+        this.app.use(this.apiPath.proyectos, proyectoRouter);
     }
 
     listen() {
