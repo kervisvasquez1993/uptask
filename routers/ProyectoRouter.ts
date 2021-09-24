@@ -1,12 +1,13 @@
 import { Router } from "express";
-import { nosotrosIndex } from "../Controllers/ProyectosController";
+import {  proyectoIndex, proyectoStore } from "../Controllers/ProyectosController";
 
 
 const router = Router();
 
 
 // nuevo proyecto
-router.get("/", nosotrosIndex)
+router.get("/", proyectoIndex)
+router.post("/", proyectoStore)
 
 
 

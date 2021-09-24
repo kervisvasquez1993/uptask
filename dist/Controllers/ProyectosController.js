@@ -1,8 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.nosotrosIndex = void 0;
-const nosotrosIndex = (req, res) => {
+exports.proyectoStore = exports.proyectoIndex = void 0;
+const proyectoIndex = (req, res) => {
     res.json({ data: "hola desde el controlador" });
 };
-exports.nosotrosIndex = nosotrosIndex;
+exports.proyectoIndex = proyectoIndex;
+const proyectoStore = (req, res) => {
+    const { body } = req;
+    res.json({
+        data: "enviaste el formulario",
+        body
+    });
+};
+exports.proyectoStore = proyectoStore;
 //# sourceMappingURL=ProyectosController.js.map
