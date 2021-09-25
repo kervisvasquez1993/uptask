@@ -20,17 +20,17 @@ const proyectoIndex = (req, res) => {
 exports.proyectoIndex = proyectoIndex;
 const proyectoStore = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
-    const nombre = body.nombre;
-    if (nombre.length <= 0) {
-        return res.status(400).json({ data: "el nombre es requerido" });
-    }
-    const proyecto = yield Proyecto_1.default.findOne({ where: { nombre: body.nombre }, });
+    // const nombre: string = body.nombre;
+    // const url:string = slug(nombre).toLocaleLowerCase()
+    const proyecto = yield Proyecto_1.default.findOne({ where: { nombre: body.nombre } });
     if (proyecto) {
-        return res.status(400).json({ data: `ya existe un proyecto con el nombre : ${nombre}` });
+        return res
+            .status(400)
+            .json({ data: `ya existe un proyecto con el nombre : ${body.nombre}` });
     }
     const proyectoSave = yield Proyecto_1.default.create(body);
     res.json({
-        data: proyectoSave
+        data: proyectoSave,
     });
 });
 exports.proyectoStore = proyectoStore;
