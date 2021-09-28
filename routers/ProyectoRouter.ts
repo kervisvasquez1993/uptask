@@ -6,7 +6,9 @@ import {
     proyectoShow,
     proyectoStore,
     proyectoUpdate,
+    tareaProyecto,
 } from "../Controllers/ProyectosController";
+import { tareaIndex } from "../Controllers/TareaController";
 import { validarCampos } from "../middleware/validacion";
 
 const router = Router();
@@ -29,6 +31,14 @@ router.get("/:url", proyectoShow);
 
 router.put("/:id", proyectoUpdate);
 router.delete("/:id", proyectoDelete);
+// creacion de proyecto tarea asociaa a un proyecto
+router.post("/:url/tareas",
+[
+    check("name", "El Nombre es obligatorio").notEmpty(),
+    validarCampos
+],
+tareaProyecto);
 
+router.get('/:url/tareas', tareaIndex);
 
 export default router;

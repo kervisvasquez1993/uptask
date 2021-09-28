@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import slug from "slug";
 import Proyecto from "../model/Proyecto";
+import Task from "../model/Task";
 
 export const proyectoIndex = async (req: Request, res: Response) => {
     const proyecto = await Proyecto.findAll();
@@ -36,31 +37,56 @@ export const proyectoShow = async (req: Request, res: Response) => {
 };
 
 export const proyectoUpdate = async (req: Request, res: Response) => {
-
     try {
-        const id = req.params.id
-        const {body} = req
+        const id = req.params.id;
+        const { body } = req;
         const idParam = await Proyecto.findByPk(id);
-        if(!idParam) {
-            return res.status(404).json({ data: `No existe proyecto asociado al id${id}` });
+        if (!idParam) {
+            return res
+                .status(404)
+                .json({ data: `No existe proyecto asociado al id${id}` });
         }
-        await idParam.update(body)
-        res.json({data : idParam })
+        await idParam.update(body);
+        res.json({ data: idParam });
     } catch (error) {
         throw error;
     }
 };
 
-export const proyectoDelete = async( req: Request, res: Response) => {
+export const proyectoDelete = async (req: Request, res: Response) => {
     try {
         const proyecto = await Proyecto.findByPk(req.params.id);
-        if(!proyecto)
-        {
-            return res.status(404).json({ data: `No existe proyecto asociado al id ${req.params.id}` });
+        if (!proyecto) {
+            return res.status(404).json({
+                data: `No existe proyecto asociado al id ${req.params.id}`,
+            });
         }
-        await proyecto.destroy()
-        res.json({data : proyecto})
+        await proyecto.destroy();
+        res.json({ data: proyecto });
     } catch (error) {
-        throw error
+        throw error;
     }
-}
+};
+
+export const tareaProyecto = async (req: Request, res: Response) => {
+    try {
+        const proyecto = await Proyecto.findOne({
+            where: { url: req.params.url },
+        });
+        if (!proyecto) {
+            return res
+                .status(404)
+                .json(
+                    `No existe un proyecto relacionado a la url ${req.params.url}`
+                );
+        }
+        const { name } = req.body;
+        const status = 0;
+        const ProyectoId = proyecto.id;
+
+        const tareaSave = await Task.create({ name, status, ProyectoId });
+        res.json({ data: tareaSave });
+    } catch (e) {
+        throw e;
+    }
+};

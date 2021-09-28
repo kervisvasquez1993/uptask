@@ -1,13 +1,12 @@
-import { DataTypes, Model,  } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import slug from "slug";
 import db from "../config/db";
-import shortid from "shortid"
-
+import shortid from "shortid";
 
 class Proyecto extends Model {
-     nombre!: string;
-     url!: string;
-
+    id?: string;
+    nombre!: string;
+    url!: string;
 }
 
 Proyecto.init(
@@ -21,17 +20,16 @@ Proyecto.init(
         },
     },
     {
-      sequelize : db,
-      modelName: "Proyecto",
-      hooks: {
-                  beforeCreate(d) {
-                    const url: string = slug(d.nombre).toLocaleLowerCase();
-                    d.url = `${url}-${shortid.generate()}`;
-                      
-                  },
-              },
-    },
-)
+        sequelize: db,
+        modelName: "Proyecto",
+        hooks: {
+            beforeCreate(d) {
+                const url: string = slug(d.nombre).toLocaleLowerCase();
+                d.url = `${url}-${shortid.generate()}`;
+            },
+        },
+    }
+);
 // const Proyecto = db.define(
 //     "proyectos",
 //     {
@@ -52,7 +50,5 @@ Proyecto.init(
 //         },
 //     }
 // );
-
-
 
 export default Proyecto;

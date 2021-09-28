@@ -8,7 +8,7 @@ const router = Router();
 
 // nuevo proyecto
 
-router.get('/:url', tareaIndex);
+// router.get('/:url', tareaIndex);
 router.post('/:url', tareaStore);
 
 export default router;

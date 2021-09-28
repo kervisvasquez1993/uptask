@@ -5,20 +5,16 @@ import Task from "../model/Task";
 export const tareaIndex = async (req: Request, res: Response) => {
     // obtener el proyecto actual
     const proyecto = await Proyecto.findOne({ where: { url: req.params.url } });
-    
-};
-
-export const tareaStore = async (req: Request, res: Response) => {
-    const proyecto = await Proyecto.findOne({ where: { url: req.params.url } });
-    if(!proyecto){
-        return res.status(404).json(`No existe un proyecto relacionado a la url ${req.params.url}`);
+    if (!proyecto) {
+        return res
+            .status(404)
+            .json({
+                data: `No existe ningun proyecto asociado a la url ${proyecto}`,
+            });
     }
-    const { name } = req.body;
-    const status = 1;
-    const ProyectoId = proyecto.id;
+    const tareas = await Task.findAll({ where: { ProyectoId: proyecto.id } });
 
-    const tareaSave = await Task.create({name, status, ProyectoId})
-    res.json({data :tareaSave})
-
-    
+    res.json({data : tareas});
 };
+
+export const tareaStore = async (req: Request, res: Response) => {};

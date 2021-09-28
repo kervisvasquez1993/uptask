@@ -10,7 +10,7 @@ class Server {
     private apiPath = {
         users: "/api/users",
         proyectos: "/api/proyectos",
-        tareas: "/api/tareas",
+        tareas: "/api/proyecto",
     };
     constructor() {
         this.app = express();

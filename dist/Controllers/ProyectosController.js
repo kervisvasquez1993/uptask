@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.proyectoDelete = exports.proyectoUpdate = exports.proyectoShow = exports.proyectoStore = exports.proyectoIndex = void 0;
+exports.tareaProyecto = exports.proyectoDelete = exports.proyectoUpdate = exports.proyectoShow = exports.proyectoStore = exports.proyectoIndex = void 0;
 const Proyecto_1 = __importDefault(require("../model/Proyecto"));
+const Task_1 = __importDefault(require("../model/Task"));
 const proyectoIndex = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const proyecto = yield Proyecto_1.default.findAll();
     res.json({ data: proyecto });
@@ -55,7 +56,9 @@ const proyectoUpdate = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const { body } = req;
         const idParam = yield Proyecto_1.default.findByPk(id);
         if (!idParam) {
-            return res.status(404).json({ data: `No existe proyecto asociado al id${id}` });
+            return res
+                .status(404)
+                .json({ data: `No existe proyecto asociado al id${id}` });
         }
         yield idParam.update(body);
         res.json({ data: idParam });
@@ -69,7 +72,9 @@ const proyectoDelete = (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const proyecto = yield Proyecto_1.default.findByPk(req.params.id);
         if (!proyecto) {
-            return res.status(404).json({ data: `No existe proyecto asociado al id ${req.params.id}` });
+            return res.status(404).json({
+                data: `No existe proyecto asociado al id ${req.params.id}`,
+            });
         }
         yield proyecto.destroy();
         res.json({ data: proyecto });
@@ -79,4 +84,25 @@ const proyectoDelete = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.proyectoDelete = proyectoDelete;
+const tareaProyecto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const proyecto = yield Proyecto_1.default.findOne({
+            where: { url: req.params.url },
+        });
+        if (!proyecto) {
+            return res
+                .status(404)
+                .json(`No existe un proyecto relacionado a la url ${req.params.url}`);
+        }
+        const { name } = req.body;
+        const status = 0;
+        const ProyectoId = proyecto.id;
+        const tareaSave = yield Task_1.default.create({ name, status, ProyectoId });
+        res.json({ data: tareaSave });
+    }
+    catch (e) {
+        throw e;
+    }
+});
+exports.tareaProyecto = tareaProyecto;
 //# sourceMappingURL=ProyectosController.js.map
