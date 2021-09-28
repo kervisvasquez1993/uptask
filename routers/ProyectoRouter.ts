@@ -2,6 +2,7 @@ import { Router } from "express";
 import { check } from "express-validator";
 import {
     proyectoIndex,
+    proyectoShow,
     proyectoStore,
 } from "../Controllers/ProyectosController";
 import { validarCampos } from "../middleware/validacion";
@@ -18,5 +19,6 @@ router.post(
     ],
     proyectoStore
 );
+router.get("/:url", proyectoShow);
 
 export default router;

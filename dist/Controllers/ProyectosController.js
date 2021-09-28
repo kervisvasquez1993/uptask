@@ -12,11 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.proyectoStore = exports.proyectoIndex = void 0;
+exports.proyectoShow = exports.proyectoStore = exports.proyectoIndex = void 0;
 const Proyecto_1 = __importDefault(require("../model/Proyecto"));
-const proyectoIndex = (req, res) => {
-    res.json({ data: "hola desde el controlador" });
-};
+const proyectoIndex = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const proyecto = yield Proyecto_1.default.findAll();
+    res.json({ data: proyecto });
+});
 exports.proyectoIndex = proyectoIndex;
 const proyectoStore = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
@@ -26,7 +27,9 @@ const proyectoStore = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     if (proyecto) {
         return res
             .status(400)
-            .json({ data: `ya existe un proyecto con el nombre : ${body.nombre}` });
+            .json({
+            data: `ya existe un proyecto con el nombre : ${body.nombre}`,
+        });
     }
     const proyectoSave = yield Proyecto_1.default.create(body);
     res.json({
@@ -34,4 +37,18 @@ const proyectoStore = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     });
 });
 exports.proyectoStore = proyectoStore;
+const proyectoShow = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const url = req.params.url;
+        const urlParams = yield Proyecto_1.default.findOne({ where: { url } });
+        if (!urlParams) {
+            return res.json({ data: `No existe url asociada a ${url}` });
+        }
+        res.json({ data: urlParams });
+    }
+    catch (error) {
+        throw error;
+    }
+});
+exports.proyectoShow = proyectoShow;
 //# sourceMappingURL=ProyectosController.js.map

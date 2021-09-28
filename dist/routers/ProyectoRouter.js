@@ -11,5 +11,6 @@ router.post("/", [
     (0, express_validator_1.check)("nombre", "El Nombre es obligatorio").trim().escape().not().isEmpty(),
     validacion_1.validarCampos,
 ], ProyectosController_1.proyectoStore);
+router.get("/:url", ProyectosController_1.proyectoShow);
 exports.default = router;
 //# sourceMappingURL=ProyectoRouter.js.map
