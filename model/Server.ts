@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import userRoute from "../routers/UserRouter";
 import proyectoRouter from "../routers/ProyectoRouter";
+import tareaRouter from "../routers/TareaRouter";
 import cors from "cors";
 import db from "../config/db";
 class Server {
@@ -9,6 +10,7 @@ class Server {
     private apiPath = {
         users: "/api/users",
         proyectos: "/api/proyectos",
+        tareas: "/api/tareas",
     };
     constructor() {
         this.app = express();
@@ -43,6 +45,7 @@ class Server {
     routes() {
         this.app.use(this.apiPath.users, userRoute);
         this.app.use(this.apiPath.proyectos, proyectoRouter);
+        this.app.use(this.apiPath.tareas, tareaRouter);
     }
 
     listen() {

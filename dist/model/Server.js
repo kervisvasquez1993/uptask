@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const UserRouter_1 = __importDefault(require("../routers/UserRouter"));
 const ProyectoRouter_1 = __importDefault(require("../routers/ProyectoRouter"));
+const TareaRouter_1 = __importDefault(require("../routers/TareaRouter"));
 const cors_1 = __importDefault(require("cors"));
 const db_1 = __importDefault(require("../config/db"));
 class Server {
@@ -22,6 +23,7 @@ class Server {
         this.apiPath = {
             users: "/api/users",
             proyectos: "/api/proyectos",
+            tareas: "/api/tareas",
         };
         this.app = (0, express_1.default)();
         this.port = process.env.SERVER_PORT || "8005";
@@ -51,6 +53,7 @@ class Server {
     routes() {
         this.app.use(this.apiPath.users, UserRouter_1.default);
         this.app.use(this.apiPath.proyectos, ProyectoRouter_1.default);
+        this.app.use(this.apiPath.tareas, TareaRouter_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {
