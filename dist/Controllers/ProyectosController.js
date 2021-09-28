@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.proyectoShow = exports.proyectoStore = exports.proyectoIndex = void 0;
+exports.proyectoUpdate = exports.proyectoShow = exports.proyectoStore = exports.proyectoIndex = void 0;
 const Proyecto_1 = __importDefault(require("../model/Proyecto"));
 const proyectoIndex = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const proyecto = yield Proyecto_1.default.findAll();
@@ -25,9 +25,7 @@ const proyectoStore = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     // const url:string = slug(nombre).toLocaleLowerCase()
     const proyecto = yield Proyecto_1.default.findOne({ where: { nombre: body.nombre } });
     if (proyecto) {
-        return res
-            .status(400)
-            .json({
+        return res.status(400).json({
             data: `ya existe un proyecto con el nombre : ${body.nombre}`,
         });
     }
@@ -51,4 +49,20 @@ const proyectoShow = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.proyectoShow = proyectoShow;
+const proyectoUpdate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.id;
+        const { body } = req;
+        const idParam = yield Proyecto_1.default.findByPk(id);
+        if (!idParam) {
+            return res.status(404).json({ data: `No existe proyecto asociado al id${id}` });
+        }
+        yield idParam.update(body);
+        res.json({ data: idParam });
+    }
+    catch (error) {
+        throw error;
+    }
+});
+exports.proyectoUpdate = proyectoUpdate;
 //# sourceMappingURL=ProyectosController.js.map

@@ -12,5 +12,6 @@ router.post("/", [
     validacion_1.validarCampos,
 ], ProyectosController_1.proyectoStore);
 router.get("/:url", ProyectosController_1.proyectoShow);
+router.put("/:id", ProyectosController_1.proyectoUpdate);
 exports.default = router;
 //# sourceMappingURL=ProyectoRouter.js.map

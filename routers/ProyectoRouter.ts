@@ -4,6 +4,7 @@ import {
     proyectoIndex,
     proyectoShow,
     proyectoStore,
+    proyectoUpdate,
 } from "../Controllers/ProyectosController";
 import { validarCampos } from "../middleware/validacion";
 
@@ -20,5 +21,7 @@ router.post(
     proyectoStore
 );
 router.get("/:url", proyectoShow);
+
+router.put("/:id", proyectoUpdate);
 
 export default router;
