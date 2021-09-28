@@ -1,6 +1,7 @@
 import { DataTypes, Model,  } from "sequelize";
 import slug from "slug";
 import db from "../config/db";
+import shortid from "shortid"
 
 
 class Proyecto extends Model {
@@ -25,7 +26,7 @@ Proyecto.init(
       hooks: {
                   beforeCreate(d) {
                     const url: string = slug(d.nombre).toLocaleLowerCase();
-                    d.url = url;
+                    d.url = `${url}-${shortid.generate()}`;
                       
                   },
               },

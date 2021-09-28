@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const slug_1 = __importDefault(require("slug"));
 const db_1 = __importDefault(require("../config/db"));
+const shortid_1 = __importDefault(require("shortid"));
 class Proyecto extends sequelize_1.Model {
 }
 Proyecto.init({
@@ -21,7 +22,7 @@ Proyecto.init({
     hooks: {
         beforeCreate(d) {
             const url = (0, slug_1.default)(d.nombre).toLocaleLowerCase();
-            d.url = url;
+            d.url = `${url}-${shortid_1.default.generate()}`;
         },
     },
 });
