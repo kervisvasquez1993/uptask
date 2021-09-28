@@ -50,3 +50,17 @@ export const proyectoUpdate = async (req: Request, res: Response) => {
         throw error;
     }
 };
+
+export const proyectoDelete = async( req: Request, res: Response) => {
+    try {
+        const proyecto = await Proyecto.findByPk(req.params.id);
+        if(!proyecto)
+        {
+            return res.status(404).json({ data: `No existe proyecto asociado al id ${req.params.id}` });
+        }
+        await proyecto.destroy()
+        res.json({data : proyecto})
+    } catch (error) {
+        throw error
+    }
+}

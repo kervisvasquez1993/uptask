@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { check } from "express-validator";
 import {
+    proyectoDelete,
     proyectoIndex,
     proyectoShow,
     proyectoStore,
@@ -15,7 +16,11 @@ router.get("/", proyectoIndex);
 router.post(
     "/",
     [
-        check("nombre", "El Nombre es obligatorio").trim().escape().not().isEmpty(),
+        check("nombre", "El Nombre es obligatorio")
+            .trim()
+            .escape()
+            .not()
+            .isEmpty(),
         validarCampos,
     ],
     proyectoStore
@@ -23,5 +28,7 @@ router.post(
 router.get("/:url", proyectoShow);
 
 router.put("/:id", proyectoUpdate);
+router.delete("/:id", proyectoDelete);
+
 
 export default router;

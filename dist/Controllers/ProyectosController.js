@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.proyectoUpdate = exports.proyectoShow = exports.proyectoStore = exports.proyectoIndex = void 0;
+exports.proyectoDelete = exports.proyectoUpdate = exports.proyectoShow = exports.proyectoStore = exports.proyectoIndex = void 0;
 const Proyecto_1 = __importDefault(require("../model/Proyecto"));
 const proyectoIndex = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const proyecto = yield Proyecto_1.default.findAll();
@@ -65,4 +65,18 @@ const proyectoUpdate = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.proyectoUpdate = proyectoUpdate;
+const proyectoDelete = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const proyecto = yield Proyecto_1.default.findByPk(req.params.id);
+        if (!proyecto) {
+            return res.status(404).json({ data: `No existe proyecto asociado al id ${req.params.id}` });
+        }
+        yield proyecto.destroy();
+        res.json({ data: proyecto });
+    }
+    catch (error) {
+        throw error;
+    }
+});
+exports.proyectoDelete = proyectoDelete;
 //# sourceMappingURL=ProyectosController.js.map
