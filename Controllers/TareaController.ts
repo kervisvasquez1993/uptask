@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import Proyecto from "../model/Proyecto";
 import Task from "../model/Task";
 
@@ -41,7 +41,11 @@ export const tareaProyecto = async (req: Request, res: Response) => {
         throw e;
     }
 };
-export const tareaUpdate = async (req: Request, res: Response) => {
+export const tareaUpdate = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     const id = req.params.id;
     const tarea = await Task.findByPk(id);
     if (!tarea) {
@@ -55,5 +59,21 @@ export const tareaUpdate = async (req: Request, res: Response) => {
     }
     tarea.status = status;
     const resultado = await tarea.save();
+
+    if (!resultado) return next();
     res.json({ data: resultado });
+};
+
+export const tareaDelete = async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const tarea = await Task.findByPk(id);
+    if (!tarea) {
+        return res
+            .status(404)
+            .json({ data: `el id ${id} no esta asociado a ninguna tarea` });
+    }
+
+    tarea.destroy();
+
+    res.json({ data: tarea });
 };
