@@ -68,25 +68,4 @@ export const proyectoDelete = async (req: Request, res: Response) => {
     }
 };
 
-export const tareaProyecto = async (req: Request, res: Response) => {
-    try {
-        const proyecto = await Proyecto.findOne({
-            where: { url: req.params.url },
-        });
-        if (!proyecto) {
-            return res
-                .status(404)
-                .json(
-                    `No existe un proyecto relacionado a la url ${req.params.url}`
-                );
-        }
-        const { name } = req.body;
-        const status = 0;
-        const ProyectoId = proyecto.id;
 
-        const tareaSave = await Task.create({ name, status, ProyectoId });
-        res.json({ data: tareaSave });
-    } catch (e) {
-        throw e;
-    }
-};

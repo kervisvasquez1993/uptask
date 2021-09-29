@@ -6,9 +6,9 @@ import {
     proyectoShow,
     proyectoStore,
     proyectoUpdate,
-    tareaProyecto,
+    
 } from "../Controllers/ProyectosController";
-import { tareaIndex } from "../Controllers/TareaController";
+import { tareaIndex, tareaProyecto } from "../Controllers/TareaController";
 import { validarCampos } from "../middleware/validacion";
 
 const router = Router();

@@ -23,7 +23,7 @@ router.delete("/:id", ProyectosController_1.proyectoDelete);
 router.post("/:url/tareas", [
     (0, express_validator_1.check)("name", "El Nombre es obligatorio").notEmpty(),
     validacion_1.validarCampos
-], ProyectosController_1.tareaProyecto);
+], TareaController_1.tareaProyecto);
 router.get('/:url/tareas', TareaController_1.tareaIndex);
 exports.default = router;
 //# sourceMappingURL=ProyectoRouter.js.map

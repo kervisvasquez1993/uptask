@@ -23,7 +23,7 @@ class Server {
         this.apiPath = {
             users: "/api/users",
             proyectos: "/api/proyectos",
-            tareas: "/api/proyecto",
+            tareas: "/api/tareas",
         };
         this.app = (0, express_1.default)();
         this.port = process.env.SERVER_PORT || "8005";

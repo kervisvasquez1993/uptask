@@ -2,7 +2,10 @@ import { DataTypes, Model } from "sequelize";
 import db from "../config/db";
 import Proyecto from "./Proyecto";
 
-class Task extends Model {}
+class Task extends Model {
+    name?: string;
+    status?:number
+}
 
 Task.init(
     {
