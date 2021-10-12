@@ -1,92 +1,30 @@
 "use strict";
-/* import { Request, Response } from "express";
-import User from "../model/User";
-export const usersIndex = async (req: Request, res: Response) => {
-    const user = await User.findAll();
-
-    res.json({
-        data: user,
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-
-export const userShow = async (req: Request, res: Response) => {
-    const { id } = req.params;
-
-    const user = await User.findByPk(id);
-
-    if (!user) {
-        return res.json({ data: `No existe un asuario con el id ${id}` });
-    }
-    res.json({
-        data: user,
-        id,
-    });
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
-export const userPost = async (req: Request, res: Response) => {
-    const { body } = req;
-    try {
-        const existEmail = await User.findOne({
-            where: { email: body.email },
-        });
-        if (existEmail) {
-            return res
-                .status(400)
-                .json({ data: `ya existe un email con este` });
-        }
-
-        const user = await User.create(body);
-        res.json({ data: user });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            data: `Hable con el admin`,
-        });
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.newUser = void 0;
+const User_1 = __importDefault(require("../model/User"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password } = req.body;
+    const validarEmail = yield User_1.default.findOne({ where: { email } });
+    if (validarEmail) {
+        return res.json({ data: `el email ${email} ya esta en uso` });
     }
-};
-
-export const userUpdate = async (req: Request, res: Response) => {
-    try {
-        const { id } = req.params;
-        const { body } = req;
-        const user = await User.findByPk(id);
-        if (!user) {
-            return res.status(404).json({
-                data: `El usuario con el id : ${id} no esta saociado a ningun usuario`,
-            });
-        }
-
-        await user.update(body);
-
-        res.json({ data: user });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            data: `Hable con el admin`,
-        });
-    }
-};
-
-export const userDelete = async (req: Request, res: Response) => {
-    try {
-        const { id } = req.params;
-        const { body } = req;
-        const user = await User.findByPk(id);
-        if (!user) {
-            return res.status(404).json({
-                data: `El usuario con el id : ${id} no esta saociado a ningun usuario`,
-            });
-        }
-
-        await user.update({status : false});
-
-        res.json({ data: user });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            data: `Hable con el admin`,
-        });
-    }
-};
- */ 
+    // generar hash para la contraseña
+    bcryptjs_1.default.hashSync(password, bcryptjs_1.default.genSaltSync(10));
+    const newUser = yield User_1.default.create({ email, password });
+    res.json({ data: newUser });
+});
+exports.newUser = newUser;
 //# sourceMappingURL=UserController.js.map
