@@ -23,8 +23,13 @@ const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     // generar hash para la contraseña
     bcryptjs_1.default.hashSync(password, bcryptjs_1.default.genSaltSync(10));
-    const newUser = yield User_1.default.create({ email, password });
-    res.json({ data: newUser });
+    try {
+        const newUser = yield User_1.default.create({ email, password });
+    }
+    catch (err) {
+        throw new Error('No se registro registro en Base de dato');
+    }
+    res.json({ data: exports.newUser });
 });
 exports.newUser = newUser;
 //# sourceMappingURL=UserController.js.map

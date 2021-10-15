@@ -14,13 +14,23 @@ User.init({
         type: sequelize_1.DataTypes.STRING(50),
         allowNull: false,
         unique: {
-            name: true,
-            msg: "el usuario ya esta registradoi"
-        }
+            args: true,
+            msg: "el usuario ya esta registradoi",
+        },
+        validate: {
+            notEmpty: {
+                msg: "El email no puede ir vacio",
+            },
+        },
     },
     password: {
         type: sequelize_1.DataTypes.STRING(60),
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: {
+                msg: "El Password no puede ir vacio",
+            },
+        },
     },
 }, {
     sequelize: db_1.default,
@@ -28,7 +38,7 @@ User.init({
     hooks: {
         beforeCreate(u) {
             u.password = bcryptjs_1.default.hashSync(u.password, bcryptjs_1.default.genSaltSync(10));
-        }
+        },
     },
 });
 User.hasMany(Proyecto_1.default);
