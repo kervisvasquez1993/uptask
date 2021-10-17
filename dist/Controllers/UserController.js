@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.newUser = void 0;
+exports.login = exports.newUser = void 0;
 const User_1 = __importDefault(require("../model/User"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -27,9 +27,13 @@ const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const newUser = yield User_1.default.create({ email, password });
     }
     catch (err) {
-        throw new Error('No se registro registro en Base de dato');
+        throw new Error("No se registro registro en Base de dato");
     }
     res.json({ data: exports.newUser });
 });
 exports.newUser = newUser;
+const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    return res.json("hola");
+});
+exports.login = login;
 //# sourceMappingURL=UserController.js.map

@@ -19,7 +19,7 @@ User.init({
         },
         validate: {
             notEmpty: {
-                msg: "El email no puede ir vacio",
+                msg: "El email no puede ir vacio!!!",
             },
         },
     },

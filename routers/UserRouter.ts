@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {check} from "express-validator";
-import { newUser } from "../Controllers/UserController";
+import { login, newUser } from "../Controllers/UserController";
 import { validarCampos } from "../middleware/validacion";
 
 
@@ -17,5 +17,12 @@ router.post('/',[
 ], newUser);
 
  
+router.post('/login',[
+    check('email', "debe ingresar un correo valido").notEmpty().isEmail(),
+    check('password', "el password es obligatorio").notEmpty(),
+    validarCampos,
+
+], login);
+
 
 export default router;
